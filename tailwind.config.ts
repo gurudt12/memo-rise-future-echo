@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,6 +53,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				memo: {
+					pink: '#FFDEE2',
+					peach: '#FDE1D3',
+					gray: '#F1F0FB',
+					white: '#FFFFFF',
+					offwhite: '#F8F8F8',
+					rosegold: '#B76E79',
+					text: '#4A4A4A'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -84,11 +94,38 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'floating': {
+					'0%, 100%': {
+						transform: 'translateY(0px)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out forwards',
+				'floating': 'floating 6s ease-in-out infinite'
+			},
+			fontFamily: {
+				handwriting: ['Caveat', 'cursive']
+			},
+			backgroundImage: {
+				'notebook-texture': "url('/lovable-uploads/5f07b344-398f-4724-943c-0e7e9ed67e86.png')",
+				'paper-texture': "linear-gradient(to right, rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('/public/paper-texture.png')"
 			}
 		}
 	},
