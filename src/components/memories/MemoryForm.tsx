@@ -1,9 +1,9 @@
-
 import { useState } from "react";
 import { Mic, MicOff, Image, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/contexts/UserContext";
 
 const MemoryForm = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -11,6 +11,7 @@ const MemoryForm = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { toast } = useToast();
+  const { userId } = useUser();
 
   const handleToggleRecording = () => {
     setIsRecording(!isRecording);
@@ -48,6 +49,7 @@ const MemoryForm = () => {
       text,
       hasImage: !!selectedImage,
       timestamp: new Date(),
+      userId
     });
     
     toast({

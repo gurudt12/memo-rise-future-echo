@@ -1,9 +1,12 @@
-
 import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 import { Button } from "@/components/ui/button";
 import { BarChart4, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+interface MemoryAnalysisProps {
+  userId: string;
+}
 
 // Demo data for the memory analysis
 const demoMemoryTypes = [
@@ -22,7 +25,7 @@ const demoInsights = [
   "You've been documenting moments of personal growth, though these make up a smaller percentage (5%) of your total memories."
 ];
 
-export const MemoryAnalysis = () => {
+export const MemoryAnalysis = ({ userId }: MemoryAnalysisProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [memoryData, setMemoryData] = useState<Array<{ name: string; value: number; color: string }>>([]);
   const [insights, setInsights] = useState<string[]>([]);
@@ -31,8 +34,9 @@ export const MemoryAnalysis = () => {
   const analyzeMemories = () => {
     setIsLoading(true);
     
-    // Simulate API call for memory analysis
+    // Simulate API call for memory analysis with userId
     setTimeout(() => {
+      console.log(`Analyzing memories for user: ${userId}`);
       setMemoryData(demoMemoryTypes);
       setInsights(demoInsights);
       setIsLoading(false);
