@@ -1,11 +1,10 @@
+
 import { BookOpen, Menu } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "@/contexts/UserContext";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { userId } = useUser();
 
   return (
     <header className="bg-memo-offwhite border-b border-memo-gray/20 px-4 py-3 sticky top-0 z-10">
@@ -15,7 +14,7 @@ const Header = () => {
           <h1 className="text-2xl font-handwriting font-bold">MemoRise</h1>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex gap-6">
           <Link to="/" className="text-memo-text hover:text-memo-rosegold transition-colors">
             Home
           </Link>
@@ -28,11 +27,6 @@ const Header = () => {
           <Link to="/analysis" className="text-memo-text hover:text-memo-rosegold transition-colors">
             Analysis
           </Link>
-          {userId && (
-            <div className="ml-4 px-3 py-1 bg-memo-peach/20 rounded-full text-sm text-memo-rosegold">
-              User ID: {userId}
-            </div>
-          )}
         </div>
 
         <button 
@@ -74,11 +68,6 @@ const Header = () => {
             >
               Analysis
             </Link>
-            {userId && (
-              <div className="px-4 py-2 bg-memo-peach/10 text-sm text-memo-rosegold">
-                User ID: {userId}
-              </div>
-            )}
           </div>
         </div>
       )}
