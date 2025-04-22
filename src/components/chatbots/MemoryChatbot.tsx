@@ -1,9 +1,9 @@
-
 import { useState, useRef, useEffect } from "react";
-import { Send, Sparkles } from "lucide-react";
+import { Send, Sparkles, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useToast } from "@/components/ui/use-toast";
 
 // Demo chatbot responses
 const demoResponses = [
@@ -20,7 +20,14 @@ interface ChatMessage {
   content: string;
 }
 
+const calendarSuggestions = [
+  "Based on the conversation, you might want to add: Team meeting next Tuesday at 2 PM",
+  "Consider adding to your calendar: Follow-up on project milestones next week",
+  "Suggested calendar entry: Review progress on personal goals at the end of the month",
+];
+
 const MemoryChatbot = () => {
+  const { toast } = useToast();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -57,7 +64,32 @@ const MemoryChatbot = () => {
       setIsTyping(false);
     }, 1500);
   };
-  
+
+  const handleCalendarSuggestions = () => {
+    if (messages.length < 2) {
+      toast({
+        title: "Not enough context",
+        description: "Have a conversation first to get calendar suggestions",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsTyping(true);
+    
+    // Simulate AI analyzing conversation and suggesting calendar entries
+    setTimeout(() => {
+      const suggestion = calendarSuggestions[Math.floor(Math.random() * calendarSuggestions.length)];
+      const botMessage: ChatMessage = {
+        role: "bot",
+        content: `📅 ${suggestion}`,
+      };
+      
+      setMessages(prev => [...prev, botMessage]);
+      setIsTyping(false);
+    }, 1500);
+  };
+
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -112,7 +144,18 @@ const MemoryChatbot = () => {
         </div>
       </div>
       
-      <form onSubmit={handleSendMessage} className="flex gap-2">
+      <div className="flex gap-2">
+        <Button
+          onClick={handleCalendarSuggestions}
+          variant="outline"
+          className="border-memo-rosegold/40 hover:bg-memo-pink/20"
+        >
+          <Calendar className="mr-2 h-4 w-4" />
+          Suggest Calendar Events
+        </Button>
+      </div>
+
+      <form onSubmit={handleSendMessage} className="flex gap-2 mt-2">
         <div className="relative flex-1">
           <Input
             value={input}
